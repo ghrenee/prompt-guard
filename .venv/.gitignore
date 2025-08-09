@@ -1,0 +1,70 @@
+# ------------------------------------------------------------------------------
+# Python
+# ------------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+lib/
+lib64/
+pip-wheel-metadata/
+share/python-wheels/
+pyvenv.cfg
+
+# Virtual environment (rename if you use something other than .venv)
+.venv/
+venv/
+ENV/
+env/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# pytest cache
+.pytest_cache/
+
+# ------------------------------------------------------------------------------
+# Node / JavaScript
+# ------------------------------------------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-error.log*
+.pnp/
+.pnp.js
+
+# Build outputs
+dist/
+build/
+coverage/
+# Temporary bundle files
+*~ 
+
+# ------------------------------------------------------------------------------
+# Environment and configuration
+# ------------------------------------------------------------------------------
+.env            # Your API keys and other secrets
+.env.*          # Additional env files like .env.local, .env.test
+*.env
+
+# ------------------------------------------------------------------------------
+# Editor / OS-specific
+# ------------------------------------------------------------------------------
+.DS_Store       # macOS
+Thumbs.db       # Windows
+.vscode/        # Visual Studio Code settings
+.idea/          # JetBrains IDE settings
+
+# Logs
+*.log
+
+# ------------------------------------------------------------------------------
+# Miscellaneous
+# ------------------------------------------------------------------------------
+*.swp
+*.swo
