@@ -1,0 +1,22 @@
+# Python / Flask specific
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.env
+
+# Frontend specific (good practice for later)
+node_modules/
+dist/
+build/
+.DS_Store
+
+# IDE / Editor specific
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Log files
+*.log
