@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prompt Guard</title>
+    <!-- Flask will substitute the correct static URL at runtime -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>🛡️ Prompt Guard</h1>
+      <p class="subtitle">
+        Analyze your prompt in real time to make it clear and effective.
+      </p>
+      <label for="promptInput">Enter your prompt:</label>
+      <textarea id="promptInput" placeholder="Type your prompt here…" rows="4"></textarea>
+      <button id="analyzeButton">Analyze</button>
+      <div id="result" class="hidden">
+        <h2>Analysis Result</h2>
+        <p><strong>Identified flaw:</strong> <span id="flaw"></span></p>
+        <p><strong>Improved prompt:</strong></p>
+        <pre id="improved"></pre>
+      </div>
+    </div>
+
+    <!-- JS file loaded from the static folder -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>
