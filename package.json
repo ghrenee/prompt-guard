@@ -1,0 +1,15 @@
+{
+  "name": "prompt-guard",
+  "version": "1.0.0",
+  "description": "### From vague ideas to perfect prompts, in real-time.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

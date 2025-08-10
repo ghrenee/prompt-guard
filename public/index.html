@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prompt Guard Dashboard</title>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #121212;
+      color: #eee;
+    }
+    h1, h2 {
+      color: #9146FF;
+    }
+    canvas {
+      background-color: #1e1e1e;
+      border-radius: 8px;
+      margin-bottom: 40px;
+      max-width: 600px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    table {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      border-collapse: collapse;
+      background-color: #1e1e1e;
+    }
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #333;
+    }
+    th {
+      text-align: left;
+      color: #9146FF;
+    }
+    tr:hover {
+      background-color: #2a2a2a;
+    }
+  </style>
+</head>
+<body>
+  <h1>Prompt Guard Stress-Test Dashboard</h1>
+
+  <h2>Failure Summary</h2>
+  <canvas id="failureChart" width="400" height="200"></canvas>
+
+  <h2>Latency Metrics</h2>
+  <canvas id="latencyChart" width="400" height="200"></canvas>
+
+  <h2>Severity Levels</h2>
+  <canvas id="severityChart" width="400" height="200"></canvas>
+
+  <h2>Test Coverage</h2>
+  <canvas id="coverageChart" width="400" height="200"></canvas>
+
+  <h2>Top Problematic Prompts</h2>
+  <table id="topPromptsTable">
+    <thead>
+      <tr><th>Prompt</th><th>Failures</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script src="mockData.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>
