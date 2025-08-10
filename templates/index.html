@@ -1,31 +1,137 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Prompt Guard</title>
-    <!-- Flask will substitute the correct static URL at runtime -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-  </head>
-  <body>
-    <div class="container">
-      <h1>🛡️ Prompt Guard</h1>
-      <p class="subtitle">
-        Analyze your prompt in real time to make it clear and effective.
-      </p>
-      <label for="promptInput">Enter your prompt:</label>
-      <textarea id="promptInput" placeholder="Type your prompt here…" rows="4"></textarea>
-      <button id="analyzeButton">Analyze</button>
-      <div id="result" class="hidden">
-        <h2>Analysis Result</h2>
-        <p><strong>Identified flaw:</strong> <span id="flaw"></span></p>
-        <p><strong>Improved prompt:</strong></p>
-        <pre id="improved"></pre>
-      </div>
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <title>Prompt Guard Analyzer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #eee;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 120px;
+      font-size: 16px;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      background-color: #1e1e1e;
+      color: #eee;
+      resize: vertical;
+    }
+    button {
+      margin-top: 15px;
+      padding: 12px 30px;
+      background-color: #9146FF;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #6e2cff;
+    }
+    .section {
+      background-color: #222;
+      margin-top: 25px;
+      padding: 20px;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      font-size: 15px;
+      min-height: 80px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Prompt Guard Analyzer</h1>
 
-    <!-- JS file loaded from the static folder -->
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-  </body>
+  <textarea id="promptInput" placeholder="Enter your prompt here..."></textarea>
+  <br />
+  <button id="analyzeBtn">Analyze Prompt</button>
+
+  <div id="outputSection" class="section" style="display:none;"></div>
+  <div id="errorSection" class="section" style="display:none; color:#ff6b6b;"></div>
+
+  <script>
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const promptInput = document.getElementById('promptInput');
+    const outputSection = document.getElementById('outputSection');
+    const errorSection = document.getElementById('errorSection');
+
+    analyzeBtn.addEventListener('click', async () => {
+      const prompt = promptInput.value.trim();
+      if (!prompt) {
+        alert('Please enter a prompt.');
+        return;
+      }
+
+      // Reset UI
+      outputSection.style.display = 'none';
+      errorSection.style.display = 'none';
+      outputSection.textContent = '';
+      errorSection.textContent = '';
+
+      analyzeBtn.disabled = true;
+      analyzeBtn.textContent = 'Analyzing...';
+
+      try {
+        const response = await fetch('/analyze-prompt', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ prompt })
+        });
+
+        if (!response.ok) {
+          const errData = await response.json();
+          throw new Error(errData.error || 'Server error');
+        }
+
+        const data = await response.json();
+
+        // Build user-friendly output string
+        let userOutput = '';
+
+        if (data.clarifyingQuestions && data.clarifyingQuestions.length > 0) {
+          userOutput += 'Clarifying Questions:\n';
+          data.clarifyingQuestions.forEach(q => userOutput += `- ${q}\n`);
+          userOutput += '\n';
+        }
+
+        if (data.improvedPrompt && data.improvedPrompt.trim() !== '') {
+          userOutput += 'Improved Prompt:\n';
+          userOutput += data.improvedPrompt + '\n\n';
+        }
+
+        if (data.explanation && data.explanation.trim() !== '') {
+          userOutput += 'Explanation:\n';
+          userOutput += data.explanation;
+        }
+
+        if (!userOutput) {
+          userOutput = 'No detected issues. Your prompt looks good!';
+        }
+
+        outputSection.textContent = userOutput;
+        outputSection.style.display = 'block';
+
+      } catch (error) {
+        errorSection.textContent = 'Error analyzing the prompt: ' + error.message;
+        errorSection.style.display = 'block';
+      } finally {
+        analyzeBtn.disabled = false;
+        analyzeBtn.textContent = 'Analyze Prompt';
+      }
+    });
+  </script>
+</body>
 </html>

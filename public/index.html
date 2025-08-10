@@ -2,74 +2,78 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prompt Guard Dashboard</title>
-  <!-- Chart.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Prompt Guard Analyzer</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: #121212;
+      padding: 20px;
+      background: #121212;
       color: #eee;
     }
-    h1, h2 {
-      color: #9146FF;
-    }
-    canvas {
-      background-color: #1e1e1e;
-      border-radius: 8px;
-      margin-bottom: 40px;
-      max-width: 600px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    table {
+    textarea {
       width: 100%;
-      max-width: 600px;
-      margin: 0 auto 40px;
-      border-collapse: collapse;
-      background-color: #1e1e1e;
-    }
-    th, td {
+      height: 100px;
+      font-size: 16px;
       padding: 10px;
-      border-bottom: 1px solid #333;
+      border-radius: 8px;
+      background: #1e1e1e;
+      color: #eee;
+      border: none;
+      resize: vertical;
     }
-    th {
-      text-align: left;
-      color: #9146FF;
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #9146FF;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
     }
-    tr:hover {
-      background-color: #2a2a2a;
+    button:hover {
+      background: #6e2cff;
+    }
+    pre {
+      margin-top: 20px;
+      background: #222;
+      padding: 15px;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      font-size: 15px;
+      min-height: 100px;
     }
   </style>
 </head>
 <body>
-  <h1>Prompt Guard Stress-Test Dashboard</h1>
+  <h1>Prompt Guard - Real-Time Analyzer</h1>
+  <textarea id="promptInput" placeholder="Enter your prompt here...">Explain the 2020 financial regulations?</textarea><br/>
+  <button id="analyzeBtn">Analyze Prompt</button>
+  <pre id="analysisOutput">Analysis will appear here...</pre>
 
-  <h2>Failure Summary</h2>
-  <canvas id="failureChart" width="400" height="200"></canvas>
+  <script>
+    document.getElementById('analyzeBtn').addEventListener('click', async () => {
+      const prompt = document.getElementById('promptInput').value;
+      const output = document.getElementById('analysisOutput');
+      output.textContent = 'Analyzing...';
 
-  <h2>Latency Metrics</h2>
-  <canvas id="latencyChart" width="400" height="200"></canvas>
+      try {
+        const response = await fetch('/analyze-prompt', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ prompt })
+        });
 
-  <h2>Severity Levels</h2>
-  <canvas id="severityChart" width="400" height="200"></canvas>
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
 
-  <h2>Test Coverage</h2>
-  <canvas id="coverageChart" width="400" height="200"></canvas>
-
-  <h2>Top Problematic Prompts</h2>
-  <table id="topPromptsTable">
-    <thead>
-      <tr><th>Prompt</th><th>Failures</th></tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-
-  <script src="mockData.js"></script>
-  <script src="dashboard.js"></script>
+        const data = await response.json();
+        output.textContent = data.analysis;
+      } catch (error) {
+        output.textContent = 'Error: ' + error.message;
+      }
+    });
+  </script>
 </body>
 </html>
