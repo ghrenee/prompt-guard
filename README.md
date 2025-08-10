@@ -1,35 +1,63 @@
-# 🛡️ Prompt Guard
+# 🛡️ Prompt Guard: The Enterprise Firewall for LLMs
 
-### From vague ideas to perfect prompts, in real-time.
-
-![Hackathon](https://img.shields.io/badge/Hack--Nation.ai-2025-blueviolet)
+*Submission for Hack-Nation.ai 2025, Challenge #6: FailProof LLM*
 
 ---
 
-## 🚀 Core Concept
+## Core Concept
 
-**Prompt Guard** is a proactive framework designed to solve the "garbage in, garbage out" problem with Large Language Models. Instead of just stress-testing for AI failures, Prompt Guard acts as an intelligent shield that sits between the user and the AI. It analyzes prompts for flaws like vagueness or ambiguity and suggests real-time improvements, ensuring more reliable and effective outcomes.
+Prompt Guard is a proactive, enterprise-grade security layer for Large Language Models. It acts as a real-time, intelligent shield that sits between users and an organization's AI, preventing the "garbage in, garbage out" problem at the source. Our live demo showcases the core "Guard" engine, which analyzes user prompts for malicious intent (like prompt injections) or vagueness, and coaches the user to provide safer, more effective inputs. This protects expensive AI investments from misuse and brand-damaging errors.
 
-This project is being built live for **Challenge #6: FailProof LLM** of the Hack-Nation.ai 2025 hackathon.
+## The Two-Part Demo
 
-## The Problem
+This submission consists of two components that demonstrate our product and our vision:
 
-LLMs are powerful, but their output quality is critically dependent on the input quality. Vague, malformed, or ambiguous prompts lead to poor results, hallucinations, and errors. This makes it difficult for non-expert users to get the value they need from AI systems.
+1.  **The Live MVP (`prompt-guard-mvp`):** A working, end-to-end application that shows the core "Guard" engine in action. It uses a Flask backend and OpenAI's GPT-4-turbo to analyze user prompts in real-time.
+2.  **The Vision Dashboard (`prompt-guard-dashboard`):** A static mockup of our full B2B product, the "FailProof LLM" analytics platform. This dashboard shows the enterprise-level security insights and threat intelligence that would be aggregated from all "Prompt Guard" instances.
 
-## Our Solution
+## Tech Stack
 
-Prompt Guard intercepts user prompts *before* they are sent to the main LLM. It uses a dedicated AI layer to:
-1.  **Analyze & Classify** the prompt for common flaws.
-2.  **Provide Constructive Feedback** by either refining the prompt automatically or asking the user a targeted clarifying question.
-3.  **Empower Users** to create better prompts and get better results.
+* **Backend:** Python, Flask, OpenAI API (GPT-4-turbo)
+* **Frontend (MVP):** HTML, CSS, Vanilla JavaScript
+* **Frontend (Dashboard):** HTML, CSS, JavaScript with Chart.js
 
-## 🛠️ Tech Stack
+---
 
-* **Frontend:** Stitch / HTML / CSS / JavaScript
-* **Backend:** Python (Flask)
-* **AI Engine:** OpenAI GPT-5
-* **Deployment:** Vercel
+## Getting Started & How to Run
 
-## ▶️ How to Run
+This project contains two separate applications.
 
-*(Instructions will be added here)*
+### Prerequisites
+* Python 3.10+
+* An OpenAI API Key
+
+### 1. The Live MVP (The Engine)
+
+1.  **Navigate to the MVP folder:**
+    ```bash
+    cd prompt-guard-mvp
+    ```
+2.  **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+3.  **Set up your API key:**
+    * Create a file named `.env` inside the `prompt-guard-mvp` folder.
+    * Add your OpenAI API key to it like this: `OPENAI_API_KEY=sk-xxxxxxxxxx`
+4.  **Run the server:**
+    ```bash
+    python3 app.py
+    ```
+5.  View the application at `http://127.0.0.1:5001`.
+
+### 2. The Vision Dashboard (The Mockup)
+
+1.  **Navigate to the dashboard folder:**
+    ```bash
+    cd prompt-guard-dashboard
+    ```
+2.  **Run the simple server:**
+    ```bash
+    python3 -m http.server 8000
+    ```
+3.  View the dashboard at `http://127.0.0.1:8000`.
