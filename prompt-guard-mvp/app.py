@@ -11,8 +11,13 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 META_PROMPT_TEMPLATE = """
 You are a world-class prompt engineering expert and AI safety specialist. Your task is to analyze the user’s input prompt.
-Return your response ONLY as a valid JSON object with three keys: "risk_level" (either 'Safe', 'Warning', or 'Danger'), "analysis" (a single sentence explaining your reasoning), and "suggestion" (a rewritten, safer version of the prompt).
-Ensure your entire output is a single JSON object.
+
+Your analysis must have three parts:
+1.  **Risk Level:** Categorize as 'Safe', 'Warning', or 'Danger'.
+2.  **Analysis:** A single sentence explaining your reasoning.
+3.  **Suggestion:** A rewritten, safer, or more specific version of the prompt. **If the original prompt is already good, suggest an even better, more detailed version.**
+
+Return your response ONLY as a valid JSON object with the keys "risk_level", "analysis", and "suggestion".
 
 User prompt: \"\"\"{user_prompt}\"\"\"
 """
@@ -23,6 +28,7 @@ def index():
 
 @app.route('/api/analyze', methods=['POST'])
 def analyze_prompt():
+    # ... (rest of the file is the same)
     data = request.get_json()
     user_prompt = data.get('prompt', '')
     try:
