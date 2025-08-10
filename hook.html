@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hook Slide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #e9ebee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .slide-container {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            background-color: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .emoji {
+            font-size: 100px;
+        }
+        .chat-bubble {
+            background-color: #f0f2f5;
+            border-radius: 18px;
+            padding: 20px;
+            max-width: 400px;
+            position: relative;
+        }
+        .chat-bubble::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 20px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid #f0f2f5;
+        }
+        .prompt {
+            font-weight: bold;
+            color: #1c1e21;
+            margin-bottom: 8px;
+        }
+        .response {
+            color: #606770;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="emoji">🤔</div>
+        <div class="chat-bubble">
+            <div class="prompt">How do I grow my small business?</div>
+            <div class="response">To grow a business, you must increase revenue while decreasing costs. One way to do this is by selling more things.</div>
+        </div>
+    </div>
+</body>
+</html>
