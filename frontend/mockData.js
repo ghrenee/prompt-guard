@@ -1,4 +1,3 @@
-// Only define the mockData object here — no exports needed because loaded globally
 const mockData = {
   failureSummary: [
     { type: "Refusal", count: 120 },
